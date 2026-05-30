@@ -17,6 +17,8 @@ export function createApp(): Express {
   app.use(express.json());
 
   app.use(healthRouter());
+  app.get("/favicon.ico", (_req, res) => res.status(204).end());
+  app.get("/favicon.png", (_req, res) => res.status(204).end());
   app.use("/api/search", searchRouter(store, searchService));
   app.use("/api/jobs", jobsRouter(store));
   app.use("/api/applications", applicationsRouter(store));

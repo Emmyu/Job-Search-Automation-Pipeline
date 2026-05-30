@@ -1,8 +1,4 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { createApp } from "../src/server.js";
+import { createApp } from "../dist/server.js";
 
-const app = createApp();
-
-export default function handler(req: VercelRequest, res: VercelResponse) {
-  return app(req, res);
-}
+/** Vercel requires a default export that is a function or Express app */
+export default createApp();
