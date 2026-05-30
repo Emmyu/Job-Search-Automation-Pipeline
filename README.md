@@ -109,8 +109,7 @@ This project includes `api/index.ts` and `vercel.json` for serverless Express.
    - `DEFAULT_KEYWORDS` = `typescript,node`
    - `MIN_MATCH_SCORE` = `40`
    - Optional: `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`
-3. Deploy — Vercel runs `vercel-build`, compiling into `api/dist/` and serving via `api/app.js`.
-4. Redeploy if you still see a 500 — confirm the latest commit is deployed.
+3. Deploy — Vercel serves `api/index.ts`, which bundles `src/` automatically (no separate build step).
 
 Only root `dist/` (local dev output) is ignored on Vercel. **`src/` must stay** so `vercel-build` can compile into `api/dist/`.
 

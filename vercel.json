@@ -1,9 +1,7 @@
 {
-  "buildCommand": "npm run vercel-build",
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/app" }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "functions": {
-    "api/app.js": {
-      "includeFiles": "api/dist/**",
+    "api/index.ts": {
       "maxDuration": 60
     }
   }
