@@ -1,5 +1,7 @@
-export default async (req, res) => {
-  const { createApp } = await import("../dist/app.js");
-  const app = createApp();
-  return app(req, res);
-};
+"use strict";
+
+const { createApp } = require("../dist/app.js");
+
+const app = createApp();
+
+module.exports = (req, res) => app(req, res);
