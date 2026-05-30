@@ -2,12 +2,11 @@
   "name": "job-search-automation",
   "version": "1.0.0",
   "description": "Job search automation pipeline with REST APIs",
-  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "vercel-build": "npm run build",
-    "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts",
+    "start": "node dist/local-server.js",
+    "dev": "tsx watch src/local-server.ts",
     "search": "tsx src/cli.ts"
   },
   "keywords": [

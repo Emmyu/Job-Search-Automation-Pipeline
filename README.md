@@ -96,7 +96,7 @@ Copy `.env.example` to `.env`:
 |---------|-------------|
 | `npm run dev` | Start API with hot reload |
 | `npm run build` | Compile TypeScript |
-| `npm start` | Run compiled server |
+| `npm start` | Run compiled local server (`local-server.js`) |
 | `npm run search` | CLI one-off search |
 
 ## Deploy on Vercel
