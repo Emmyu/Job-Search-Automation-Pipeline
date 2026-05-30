@@ -112,7 +112,7 @@ This project includes `api/index.ts` and `vercel.json` for serverless Express.
 3. Deploy — Vercel runs `vercel-build`, compiling into `api/dist/` and serving via `api/app.js`.
 4. Redeploy if you still see a 500 — confirm the latest commit is deployed.
 
-Data on Vercel is stored under `/tmp` (ephemeral per instance). For production persistence, use Vercel KV, Postgres, or similar.
+Only root `dist/` (local dev output) is ignored on Vercel. **`src/` must stay** so `vercel-build` can compile into `api/dist/`.
 
 ## Production notes
 
