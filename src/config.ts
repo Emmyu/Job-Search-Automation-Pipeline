@@ -4,6 +4,13 @@ import type { SearchCriteria } from "./types/index.js";
 
 loadEnv();
 
+function resolveDataDir(): string {
+  if (process.env.VERCEL) {
+    return path.join("/tmp", "job-search-data");
+  }
+  return path.resolve(process.env.DATA_DIR ?? "./data");
+}
+
 function parseList(value: string | undefined, fallback: string[]): string[] {
   if (!value?.trim()) return fallback;
   return value
@@ -19,7 +26,8 @@ function parseBool(value: string | undefined, fallback: boolean): boolean {
 
 export const appConfig = {
   port: Number(process.env.PORT ?? 3000),
-  dataDir: path.resolve(process.env.DATA_DIR ?? "./data"),
+  dataDir: resolveDataDir(),
+  isVercel: Boolean(process.env.VERCEL),
   providers: parseList(process.env.JOB_PROVIDERS, ["mock"]) as Array<
     "remoteok" | "adzuna" | "mock"
   >,

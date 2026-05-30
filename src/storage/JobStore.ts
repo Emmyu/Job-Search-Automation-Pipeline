@@ -17,11 +17,22 @@ interface StoreData {
 export class JobStore {
   private data: StoreData;
   private readonly filePath: string;
+  private readonly persistEnabled: boolean;
 
   constructor(dataDir = appConfig.dataDir) {
-    fs.mkdirSync(dataDir, { recursive: true });
     this.filePath = path.join(dataDir, "store.json");
+    this.persistEnabled = this.ensureDataDir(dataDir);
     this.data = this.load();
+  }
+
+  private ensureDataDir(dataDir: string): boolean {
+    try {
+      fs.mkdirSync(dataDir, { recursive: true });
+      return true;
+    } catch (err) {
+      console.warn("[JobStore] Disk storage disabled:", err);
+      return false;
+    }
   }
 
   private load(): StoreData {
@@ -41,7 +52,12 @@ export class JobStore {
   }
 
   private persist(): void {
-    fs.writeFileSync(this.filePath, JSON.stringify(this.data, null, 2), "utf-8");
+    if (!this.persistEnabled) return;
+    try {
+      fs.writeFileSync(this.filePath, JSON.stringify(this.data, null, 2), "utf-8");
+    } catch (err) {
+      console.warn("[JobStore] Failed to persist:", err);
+    }
   }
 
   getAllJobs(): JobListing[] {

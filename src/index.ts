@@ -4,7 +4,10 @@ import { startServer } from "./server.js";
 import { SearchService } from "./services/SearchService.js";
 import { JobStore } from "./storage/JobStore.js";
 
-startServer();
+/** Local / long-running server only — Vercel uses api/index.ts */
+if (!process.env.VERCEL) {
+  startServer();
+}
 
 if (appConfig.searchCron && cron.validate(appConfig.searchCron)) {
   const store = new JobStore();

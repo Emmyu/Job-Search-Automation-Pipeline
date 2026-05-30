@@ -99,6 +99,20 @@ Copy `.env.example` to `.env`:
 | `npm start` | Run compiled server |
 | `npm run search` | CLI one-off search |
 
+## Deploy on Vercel
+
+This project includes `api/index.ts` and `vercel.json` for serverless Express.
+
+1. Import the GitHub repo in [Vercel](https://vercel.com)
+2. Set **Environment Variables** (Project → Settings → Environment Variables):
+   - `JOB_PROVIDERS` = `remoteok,mock` (or `mock` only for demo)
+   - `DEFAULT_KEYWORDS` = `typescript,node`
+   - `MIN_MATCH_SCORE` = `40`
+   - Optional: `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`
+3. Deploy — do **not** use a custom start command; Vercel uses the `api` serverless handler.
+
+Data on Vercel is stored under `/tmp` (ephemeral per instance). For production persistence, use Vercel KV, Postgres, or similar.
+
 ## Production notes
 
 - Replace JSON `JobStore` with PostgreSQL or SQLite for concurrency.
