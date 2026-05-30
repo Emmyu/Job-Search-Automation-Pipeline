@@ -1,6 +1,6 @@
 import cron from "node-cron";
 import { appConfig } from "./config.js";
-import { startServer } from "./server.js";
+import { startServer } from "./app.js";
 import { SearchService } from "./services/SearchService.js";
 import { JobStore } from "./storage/JobStore.js";
 
