@@ -109,8 +109,8 @@ This project includes `api/index.ts` and `vercel.json` for serverless Express.
    - `DEFAULT_KEYWORDS` = `typescript,node`
    - `MIN_MATCH_SCORE` = `40`
    - Optional: `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`
-3. Deploy — do **not** use a custom start command; Vercel uses `api/app.js`.
-4. Redeploy after pull if you see <code>Invalid export found in module src/server.js</code> — an old deploy was using the wrong entry file.
+3. Deploy — Vercel runs `vercel-build`, compiling into `api/dist/` and serving via `api/app.js`.
+4. Redeploy if you still see a 500 — confirm the latest commit is deployed.
 
 Data on Vercel is stored under `/tmp` (ephemeral per instance). For production persistence, use Vercel KV, Postgres, or similar.
 

@@ -1,6 +1,10 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build",
-  "builds": [{ "src": "api/app.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "api/app.js" }]
+  "buildCommand": "npm run vercel-build",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/app" }],
+  "functions": {
+    "api/app.js": {
+      "includeFiles": "api/dist/**",
+      "maxDuration": 60
+    }
+  }
 }

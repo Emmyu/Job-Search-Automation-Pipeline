@@ -4,7 +4,7 @@
   "description": "Job search automation pipeline with REST APIs",
   "scripts": {
     "build": "tsc",
-    "vercel-build": "npm run build",
+    "vercel-build": "tsc -p tsconfig.vercel.json",
     "start": "node dist/local-server.js",
     "dev": "tsx watch src/local-server.ts",
     "search": "tsx src/cli.ts"

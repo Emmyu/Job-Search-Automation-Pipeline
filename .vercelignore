@@ -1,6 +1,3 @@
 src/
-dist/index.js
-dist/local-server.js
-dist/cli.js
-**/server.js
-**/server.ts
+dist/
+api/dist/

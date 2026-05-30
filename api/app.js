@@ -1,5 +1,10 @@
 "use strict";
 
-const { createApp } = require("../dist/app.js");
+const { createApp } = require("./dist/app.js");
 
-module.exports = createApp();
+let app;
+
+module.exports = (req, res) => {
+  if (!app) app = createApp();
+  return app(req, res);
+};
