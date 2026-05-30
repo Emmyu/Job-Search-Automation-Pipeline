@@ -111,7 +111,7 @@ This project includes `api/index.ts` and `vercel.json` for serverless Express.
    - Optional: `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`
 3. Deploy — Vercel serves `api/index.ts`, which bundles `src/` automatically (no separate build step).
 
-Only root `dist/` (local dev output) is ignored on Vercel. **`src/` must stay** so `vercel-build` can compile into `api/dist/`.
+Only root `dist/` (local dev output) is ignored on Vercel. **`src/` must stay** in the deployment.
 
 ## Production notes
 
