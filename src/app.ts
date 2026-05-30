@@ -1,12 +1,15 @@
+import { appConfig } from "./config.js";
 import cors from "cors";
 import express, { type Express, type Request, type Response, type NextFunction } from "express";
-import { appConfig } from "./config.js";
+import path from "node:path";
 import { applicationsRouter } from "./routes/applications.js";
 import { healthRouter } from "./routes/health.js";
 import { jobsRouter } from "./routes/jobs.js";
 import { searchRouter } from "./routes/search.js";
 import { SearchService } from "./services/SearchService.js";
 import { JobStore } from "./storage/JobStore.js";
+
+const publicDir = path.join(process.cwd(), "public");
 
 export function createApp(): Express {
   const app = express();
@@ -23,20 +26,14 @@ export function createApp(): Express {
   app.use("/api/jobs", jobsRouter(store));
   app.use("/api/applications", applicationsRouter(store));
 
-  app.get("/", (_req, res) => {
-    res.json({
-      name: "Job Search Automation API",
-      version: "1.0.0",
-      endpoints: {
-        health: "GET /health",
-        runSearch: "POST /api/search/run",
-        providers: "GET /api/search/providers",
-        searchRuns: "GET /api/search/runs",
-        jobs: "GET /api/jobs",
-        job: "GET /api/jobs/:id",
-        applications: "GET|POST /api/applications",
-        updateApplication: "PATCH /api/applications/:id",
-      },
+  app.use(express.static(publicDir));
+
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api") || req.path === "/health") {
+      return next();
+    }
+    res.sendFile(path.join(publicDir, "index.html"), (err) => {
+      if (err) next();
     });
   });
 

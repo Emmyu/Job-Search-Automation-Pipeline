@@ -2,10 +2,13 @@
   "name": "job-search-automation",
   "version": "1.0.0",
   "description": "Job search automation pipeline with REST APIs",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/local-server.js",
+    "build": "npm run build:client && tsc",
+    "build:client": "cd client && npm install && npm run build",
     "dev": "tsx watch src/local-server.ts",
+    "dev:client": "cd client && npm run dev",
+    "start": "node dist/local-server.js",
     "search": "tsx src/cli.ts"
   },
   "keywords": [

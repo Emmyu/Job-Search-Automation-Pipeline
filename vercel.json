@@ -1,9 +1,12 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
+  "buildCommand": "cd client && npm install && npm run build",
+  "rewrites": [
+    { "source": "/health", "destination": "/api" },
+    { "source": "/api/(.*)", "destination": "/api" }
+  ],
   "functions": {
-    "api/index.js": {
-      "maxDuration": 60,
-      "runtime": "nodejs20.x"
+    "api/index.ts": {
+      "maxDuration": 60
     }
   }
 }

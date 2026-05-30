@@ -90,13 +90,44 @@ Copy `.env.example` to `.env`:
                                               JobStore (JSON)
 ```
 
+## Frontend
+
+React + Vite UI in `client/` with four tabs:
+
+- **Search** — run the pipeline with keywords, filters, and view results
+- **Jobs** — browse stored job listings
+- **Applications** — track saved/applied jobs and update status
+- **History** — past search runs
+
+### Local development
+
+```bash
+# Terminal 1 — API
+npm run dev
+
+# Terminal 2 — frontend (proxies /api to :3000)
+npm run dev:client
+```
+
+Open [http://localhost:5173](http://localhost:5173)
+
+Or build and serve together:
+
+```bash
+npm run build
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Start API with hot reload |
-| `npm run build` | Compile TypeScript |
-| `npm start` | Run compiled local server (`local-server.js`) |
+| `npm run dev:client` | Start React dev server (port 5173) |
+| `npm run build` | Build frontend + compile backend |
+| `npm start` | Run compiled server (serves UI + API) |
 | `npm run search` | CLI one-off search |
 
 ## Deploy on Vercel
@@ -109,9 +140,7 @@ This project includes `api/index.ts` and `vercel.json` for serverless Express.
    - `DEFAULT_KEYWORDS` = `typescript,node`
    - `MIN_MATCH_SCORE` = `40`
    - Optional: `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`
-3. Deploy — Vercel serves `api/index.ts`, which bundles `src/` automatically (no separate build step).
-
-Only root `dist/` (local dev output) is ignored on Vercel. **`src/` must stay** in the deployment.
+3. Deploy — Vercel builds the React app into `public/` and serves it at `/`. API routes go to `api/index.ts`.
 
 ## Production notes
 
