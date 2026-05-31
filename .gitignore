@@ -6,3 +6,5 @@ public/*
 .env
 *.log
 .DS_Store
+client/node_modules/
+client/tsconfig.tsbuildinfo
