@@ -4,8 +4,8 @@ import { startServer } from "./app.js";
 import { SearchService } from "./services/SearchService.js";
 import { JobStore } from "./storage/JobStore.js";
 
-/** Local long-running server only — Vercel uses api/index.js */
-if (!process.env.VERCEL) {
+/** Local long-running server only — Netlify/Vercel use serverless functions */
+if (!appConfig.isServerless) {
   startServer();
 
   if (appConfig.searchCron && cron.validate(appConfig.searchCron)) {

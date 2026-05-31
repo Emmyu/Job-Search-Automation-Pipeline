@@ -130,17 +130,25 @@ Open [http://localhost:3000](http://localhost:3000)
 | `npm start` | Run compiled server (serves UI + API) |
 | `npm run search` | CLI one-off search |
 
-## Deploy on Vercel
+## Deploy on Netlify (recommended)
 
-This project includes `api/index.ts` and `vercel.json` for serverless Express.
-
-1. Import the GitHub repo in [Vercel](https://vercel.com)
-2. Set **Environment Variables** (Project → Settings → Environment Variables):
-   - `JOB_PROVIDERS` = `remoteok,mock` (or `mock` only for demo)
+1. [Connect the GitHub repo](https://app.netlify.com) — **Import from Git**
+2. Netlify reads `netlify.toml` automatically:
+   - **Build command:** `npm install && npm run build`
+   - **Publish directory:** `public`
+   - **Functions:** `netlify/functions/server.ts` (Express API)
+3. Set **Site settings → Environment variables:**
+   - `JOB_PROVIDERS` = `mock` (or `remoteok,mock`)
    - `DEFAULT_KEYWORDS` = `typescript,node`
    - `MIN_MATCH_SCORE` = `40`
    - Optional: `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`
-3. Deploy — Vercel builds the React app into `public/` and serves it at `/`. API routes go to `api/index.ts`.
+4. Deploy. The React UI is at `/`, API at `/api/*` and `/health`.
+
+Do **not** set a custom publish directory to `dist` or `client` — use `public` (created by the client build).
+
+## Deploy on Vercel (optional)
+
+Uses `api/index.ts` and `vercel.json`. Same environment variables as above.
 
 ## Production notes
 

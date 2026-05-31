@@ -26,16 +26,18 @@ export function createApp(): Express {
   app.use("/api/jobs", jobsRouter(store));
   app.use("/api/applications", applicationsRouter(store));
 
-  app.use(express.static(publicDir));
-
-  app.get("*", (req, res, next) => {
-    if (req.path.startsWith("/api") || req.path === "/health") {
-      return next();
-    }
-    res.sendFile(path.join(publicDir, "index.html"), (err) => {
-      if (err) next();
+  // Static UI is served by Netlify/Vercel CDN; only attach locally
+  if (!appConfig.isServerless) {
+    app.use(express.static(publicDir));
+    app.get("*", (req, res, next) => {
+      if (req.path.startsWith("/api") || req.path === "/health") {
+        return next();
+      }
+      res.sendFile(path.join(publicDir, "index.html"), (err) => {
+        if (err) next();
+      });
     });
-  });
+  }
 
   app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
     const message = err instanceof Error ? err.message : "Internal server error";

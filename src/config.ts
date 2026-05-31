@@ -4,8 +4,16 @@ import type { SearchCriteria } from "./types/index.js";
 
 loadEnv();
 
+function isServerlessRuntime(): boolean {
+  return Boolean(
+    process.env.VERCEL ||
+      process.env.NETLIFY ||
+      process.env.AWS_LAMBDA_FUNCTION_NAME
+  );
+}
+
 function resolveDataDir(): string {
-  if (process.env.VERCEL) {
+  if (isServerlessRuntime()) {
     return path.join("/tmp", "job-search-data");
   }
   return path.resolve(process.env.DATA_DIR ?? "./data");
@@ -27,7 +35,7 @@ function parseBool(value: string | undefined, fallback: boolean): boolean {
 export const appConfig = {
   port: Number(process.env.PORT ?? 3000),
   dataDir: resolveDataDir(),
-  isVercel: Boolean(process.env.VERCEL),
+  isServerless: isServerlessRuntime(),
   providers: parseList(process.env.JOB_PROVIDERS, ["mock"]) as Array<
     "remoteok" | "adzuna" | "mock"
   >,
